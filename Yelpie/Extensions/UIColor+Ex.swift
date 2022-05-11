@@ -23,4 +23,6 @@ extension UIColor {
 
     static let darkText: UIColor = .hex("141414")
     static let seperateLine: UIColor = .hex("D7D7D7")
+    static let ratingBackground: UIColor = .hex("A0A0A0")
+    static let primaryColor: UIColor = .hex("D63031")
 }

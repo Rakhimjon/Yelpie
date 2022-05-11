@@ -66,6 +66,7 @@ final class HomeTableViewCell: UITableViewCell {
         let url = URL(string: business.imageURLString)
         businessImageView.kf.setImage(with: url)
         businessNameLabel.text = business.name
+        ratingView.setRating(business.rating)
         ratingCountLabel.text = "\(business.reviewCount) reviews"
         categoryLabel.text = "\(business.price) ● \(business.categories.map { $0.title }.joined(separator: ", "))"
         addressLabel.text = business.location?.displayAddress.joined(separator: ", ")
