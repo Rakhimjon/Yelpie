@@ -1,0 +1,6 @@
+framework module Oneline {
+  umbrella header "Oneline-umbrella.h"
+
+  export *
+  module * { export * }
+}

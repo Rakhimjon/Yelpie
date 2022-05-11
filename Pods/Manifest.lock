@@ -1,0 +1,61 @@
+PODS:
+  - Alamofire (5.4.4)
+  - Codextended (0.3.0)
+  - Kingfisher (5.5.0)
+  - Moya (14.0.0):
+    - Moya/Core (= 14.0.0)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - "NSObject+Rx (5.1.0)":
+    - RxSwift (~> 5.1)
+  - Oneline (3.1.0)
+  - RxCocoa (5.1.3):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.1.3):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.3)
+  - SVProgressHUD (2.2.5)
+  - TinyConstraints (4.0.2)
+
+DEPENDENCIES:
+  - Codextended
+  - Kingfisher (~> 5.5.0)
+  - Moya (~> 14.0)
+  - "NSObject+Rx (~> 5)"
+  - Oneline
+  - RxCocoa (~> 5)
+  - RxSwift (~> 5)
+  - SVProgressHUD
+  - TinyConstraints
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Codextended
+    - Kingfisher
+    - Moya
+    - "NSObject+Rx"
+    - Oneline
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - SVProgressHUD
+    - TinyConstraints
+
+SPEC CHECKSUMS:
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  Codextended: f384271b8694376ad766ddbf2a011efbfdcee905
+  Kingfisher: 6fe5e67a90fd335e49b0f5c075ff55ac5ebedd94
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
+  Oneline: 6da8b6320d599504341cb8702c6bb59dccd83199
+  RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
+  RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
+  RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
+
+PODFILE CHECKSUM: 2b3d9adbecd50dc47e1c23ca07d72242505dc9bd
+
+COCOAPODS: 1.11.3

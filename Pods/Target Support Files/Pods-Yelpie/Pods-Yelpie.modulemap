@@ -1,0 +1,6 @@
+framework module Pods_Yelpie {
+  umbrella header "Pods-Yelpie-umbrella.h"
+
+  export *
+  module * { export * }
+}
