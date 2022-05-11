@@ -16,7 +16,7 @@ final class HomeTableViewCell: UITableViewCell {
     private let businessNameLabel = UILabel().font(.bold(16)).color(.darkText).lines()
     private let ratingView = RatingView()
     private let ratingCountLabel = UILabel().font(.regular(12)).color(.gray).align(.right)
-    private let categoryLabel = UILabel().font(.regular(14)).color(.darkText).lines()
+    private let categoryLabel = UILabel().font(.medium(14)).color(.darkText).lines()
     private let addressLabel = UILabel().font(.regular(14)).color(.gray).lines()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,17 +46,17 @@ final class HomeTableViewCell: UITableViewCell {
         businessNameLabel.leadingToTrailing(of: businessImageView, offset: 8)
         businessNameLabel.trailingToSuperview(offset: 8)
 
-        ratingView.topToBottom(of: businessNameLabel, offset: 4)
+        ratingView.topToBottom(of: businessNameLabel, offset: 6)
         ratingView.leading(to: businessNameLabel)
 
         ratingCountLabel.centerY(to: ratingView)
         ratingCountLabel.trailing(to: businessNameLabel)
 
-        categoryLabel.topToBottom(of: ratingView, offset: 4)
+        categoryLabel.topToBottom(of: ratingView, offset: 6)
         categoryLabel.leading(to: businessNameLabel)
         categoryLabel.trailing(to: businessNameLabel)
 
-        addressLabel.topToBottom(of: categoryLabel, offset: 4)
+        addressLabel.topToBottom(of: categoryLabel, offset: 6)
         addressLabel.leading(to: businessNameLabel)
         addressLabel.trailing(to: businessNameLabel)
         addressLabel.bottomToSuperview(offset: -8)

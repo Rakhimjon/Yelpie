@@ -61,7 +61,7 @@ extension RatingView {
         private var zeroColorViewWidthConstraint: Constraint!
         private var halfColorViewWidthConstraint: Constraint!
         private var fullColorViewWidthConstraint: Constraint!
-        private let width: CGFloat = 20
+        private let width: CGFloat = 18
 
         override init(frame: CGRect) {
             super.init(frame: .zero)

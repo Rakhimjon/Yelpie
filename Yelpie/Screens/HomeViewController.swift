@@ -27,13 +27,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupLayout()
-        viewModel.fetchBusinesses()
-            .subscribe { [weak self] _ in
-                self?.tableView.reloadData()
-            } onError: { error in
-                print(error)
-            }
-            .disposed(by: rx.disposeBag)
+        fetchBusinesses()
     }
 
     private func setupLayout() {
@@ -46,6 +40,16 @@ final class HomeViewController: UIViewController {
         tableView.register(HomeTableViewCell.self)
         tableView.dataSource = self
         tableView.separatorStyle = .none
+    }
+
+    private func fetchBusinesses() {
+        viewModel.fetchBusinesses()
+            .subscribe { [weak self] _ in
+                self?.tableView.reloadData()
+            } onError: { error in
+                print(error)
+            }
+            .disposed(by: rx.disposeBag)
     }
 }
 
