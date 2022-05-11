@@ -2,5 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>UIAppFonts</key>
+    <array>
+        <string>Poppins-Bold.otf</string>
+        <string>Poppins-ExtraBold.otf</string>
+        <string>Poppins-Medium.otf</string>
+        <string>Poppins-Regular.otf</string>
+        <string>Poppins-Italic.otf</string>
+        <string>Poppins-SemiBold.otf</string>
+    </array>
 </dict>
 </plist>
