@@ -8,11 +8,21 @@
 import Foundation
 import UIKit
 import RxSwift
+import CoreLocation
 
 final class HomeViewController: UIViewController {
-    private let viewModel: HomeViewModel
+    private let filterView = FilterView()
 
     private let tableView = UITableView()
+        .bgColor(.white)
+
+    private let viewModel: HomeViewModel
+    private lazy var locationManager: CLLocationManager = {
+        let locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.delegate = self
+        return locationManager
+    }()
 
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
@@ -28,17 +38,23 @@ final class HomeViewController: UIViewController {
         setupTableView()
         setupLayout()
         fetchBusinesses()
+        requestLocation()
     }
 
     private func setupLayout() {
-        view.addSubview(tableView)
+        navigationController?.navigationBar.isHidden = true
+        view.addSubviews(filterView, tableView)
 
-        tableView.edgesToSuperview()
+        filterView.edgesToSuperview(excluding: .bottom)
+
+        tableView.topToBottom(of: filterView)
+        tableView.edgesToSuperview(excluding: .top)
     }
 
     private func setupTableView() {
         tableView.register(HomeTableViewCell.self)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.separatorStyle = .none
     }
 
@@ -50,6 +66,11 @@ final class HomeViewController: UIViewController {
                 print(error)
             }
             .disposed(by: rx.disposeBag)
+    }
+
+    private func requestLocation() {
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
     }
 }
 
@@ -63,5 +84,32 @@ extension HomeViewController: UITableViewDataSource {
         let business = viewModel.businesses[indexPath.row]
         cell.set(business)
         return cell
+    }
+}
+
+extension HomeViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+}
+
+extension HomeViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            print(location)
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            manager.requestLocation()
+        default:
+            manager.requestWhenInUseAuthorization()
+        }
     }
 }

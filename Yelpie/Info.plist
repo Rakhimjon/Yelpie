@@ -11,5 +11,11 @@
         <string>Poppins-Italic.otf</string>
         <string>Poppins-SemiBold.otf</string>
     </array>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>To fetch data</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>To fetch data</string>
+    <key>UIUserInterfaceStyle</key>
+    <string>Light</string>
 </dict>
 </plist>

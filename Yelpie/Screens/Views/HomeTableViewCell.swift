@@ -12,12 +12,31 @@ import TinyConstraints
 
 final class HomeTableViewCell: UITableViewCell {
     private let wrapperView = UIView()
-    private let businessImageView = UIImageView().contentMode(.scaleAspectFill)
-    private let businessNameLabel = UILabel().font(.bold(16)).color(.darkText).lines()
+
+    private let businessImageView = UIImageView()
+        .contentMode(.scaleAspectFill)
+
+    private let businessNameLabel = UILabel()
+        .font(.bold(16))
+        .color(.darkText)
+        .lines()
+
     private let ratingView = RatingView()
-    private let ratingCountLabel = UILabel().font(.regular(12)).color(.gray).align(.right)
-    private let categoryLabel = UILabel().font(.medium(14)).color(.darkText).lines()
-    private let addressLabel = UILabel().font(.regular(14)).color(.gray).lines()
+
+    private let ratingCountLabel = UILabel()
+        .font(.regular(12))
+        .color(.gray)
+        .align(.right)
+
+    private let categoryLabel = UILabel()
+        .font(.medium(14))
+        .color(.darkText)
+        .lines()
+
+    private let addressLabel = UILabel()
+        .font(.regular(14))
+        .color(.gray)
+        .lines()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

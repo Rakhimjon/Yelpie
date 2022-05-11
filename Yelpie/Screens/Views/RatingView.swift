@@ -10,7 +10,11 @@ import UIKit
 import TinyConstraints
 
 final class RatingView: UIView {
-    private let stackView = UIStackView().axis(.horizontal).spacing(4).distribution(.fillEqually)
+    private let stackView = UIStackView()
+        .axis(.horizontal)
+        .spacing(4)
+        .distribution(.fillEqually)
+
     private var starViews: [StarView] = []
 
     enum StarFilling {
@@ -56,8 +60,12 @@ final class RatingView: UIView {
 
 extension RatingView {
     final class StarView: UIView {
-        private let colorView = UIView().bgColor(.primaryColor)
-        private let starImageView = UIImageView(image: UIImage(named: "ic-star")).tintColor(.white)
+        private let colorView = UIView()
+            .bgColor(.primaryColor)
+
+        private let starImageView = UIImageView(image: UIImage(named: "ic-star"))
+            .tintColor(.white)
+        
         private var zeroColorViewWidthConstraint: Constraint!
         private var halfColorViewWidthConstraint: Constraint!
         private var fullColorViewWidthConstraint: Constraint!
