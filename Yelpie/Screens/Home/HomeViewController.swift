@@ -16,6 +16,8 @@ final class HomeViewController: UIViewController {
     private let tableView = UITableView()
         .bgColor(.white)
 
+    private let refreshControl = UIRefreshControl()
+
     private let viewModel: HomeViewModel
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
@@ -35,10 +37,11 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
         setupLayout()
-        fetchBusinesses()
+        setupTableView()
+        setupFilterView()
         requestLocation()
+        fetchBusinesses()
     }
 
     private func setupLayout() {
@@ -51,37 +54,60 @@ final class HomeViewController: UIViewController {
         tableView.edgesToSuperview(excluding: .top)
     }
 
+    private func setupFilterView() {
+        filterView.onTextChange = { [unowned self] searchText in
+            if let searchText = searchText, !searchText.isEmpty {
+                viewModel.filteredBusinesses = viewModel.businesses
+                    .filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            } else {
+                viewModel.filteredBusinesses = viewModel.businesses
+            }
+            tableView.reloadData()
+        }
+    }
+
     private func setupTableView() {
         tableView.register(HomeTableViewCell.self)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-    }
 
-    private func fetchBusinesses() {
-        viewModel.fetchBusinesses()
-            .subscribe { [weak self] _ in
-                self?.tableView.reloadData()
-            } onError: { error in
-                print(error)
-            }
-            .disposed(by: rx.disposeBag)
+        refreshControl.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
     }
 
     private func requestLocation() {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
     }
+
+    private func fetchBusinesses() {
+        viewModel.fetchBusinesses()
+            .subscribe { [weak self] _ in
+                guard let self = self else {
+                    return
+                }
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            } onError: { [weak self] error in
+                self?.refreshControl.endRefreshing()
+            }
+            .disposed(by: rx.disposeBag)
+    }
+
+    @objc func pullToRefresh(_ sender: AnyObject) {
+       fetchBusinesses()
+    }
 }
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.businesses.count
+        return viewModel.filteredBusinesses.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(HomeTableViewCell.self, for: indexPath)
-        let business = viewModel.businesses[indexPath.row]
+        let business = viewModel.filteredBusinesses[indexPath.row]
         cell.set(business)
         return cell
     }

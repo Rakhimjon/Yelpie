@@ -9,17 +9,24 @@ import Foundation
 import UIKit
 import Kingfisher
 import TinyConstraints
+import CoreLocation
 
 final class HomeTableViewCell: UITableViewCell {
     private let wrapperView = UIView()
 
     private let businessImageView = UIImageView()
         .contentMode(.scaleAspectFill)
+        .bgColor(.ratingBackground)
 
     private let businessNameLabel = UILabel()
         .font(.bold(16))
         .color(.darkText)
         .lines()
+
+    private let distanceLabel = UILabel()
+        .font(.regular(12))
+        .color(.gray)
+        .align(.right)
 
     private let ratingView = RatingView()
 
@@ -53,7 +60,7 @@ final class HomeTableViewCell: UITableViewCell {
         businessImageView.round(by: 4)
 
         contentView.addSubview(wrapperView)
-        wrapperView.addSubviews(businessImageView, businessNameLabel, ratingView, ratingCountLabel, categoryLabel, addressLabel)
+        wrapperView.addSubviews(businessImageView, businessNameLabel, distanceLabel, ratingView, ratingCountLabel, categoryLabel, addressLabel)
 
         wrapperView.edgesToSuperview(insets: .bottom(4))
 
@@ -63,13 +70,16 @@ final class HomeTableViewCell: UITableViewCell {
 
         businessNameLabel.top(to: businessImageView)
         businessNameLabel.leadingToTrailing(of: businessImageView, offset: 8)
-        businessNameLabel.trailingToSuperview(offset: 8)
+
+        distanceLabel.top(to: businessNameLabel)
+        distanceLabel.trailingToSuperview(offset: 8)
+        distanceLabel.leadingToTrailing(of: businessNameLabel, offset: 8, relation: .equalOrGreater)
 
         ratingView.topToBottom(of: businessNameLabel, offset: 6)
         ratingView.leading(to: businessNameLabel)
 
         ratingCountLabel.centerY(to: ratingView)
-        ratingCountLabel.trailing(to: businessNameLabel)
+        ratingCountLabel.trailing(to: distanceLabel)
 
         categoryLabel.topToBottom(of: ratingView, offset: 6)
         categoryLabel.leading(to: businessNameLabel)
@@ -89,5 +99,11 @@ final class HomeTableViewCell: UITableViewCell {
         ratingCountLabel.text = "\(business.reviewCount) reviews"
         categoryLabel.text = "\(business.price) ● \(business.categories.map { $0.title }.joined(separator: ", "))"
         addressLabel.text = business.location?.displayAddress.joined(separator: ", ")
+
+        if let myLocation = MockLocationManager().location, let coordinate = business.coordinate {
+            let businessLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            let distance = myLocation.distance(from: businessLocation) / 1000
+            distanceLabel.text = "\(String(format:"%.1f", distance)) mi"
+        }
     }
 }

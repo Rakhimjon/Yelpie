@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RxCocoa
 import TinyConstraints
 
 final class FilterView: UIView {
@@ -19,6 +20,8 @@ final class FilterView: UIView {
         .image(UIImage(named: "ic-filter"))
         .tintColor(.darkText)
         .imageEdgeInsets(.init(top: 6, left: 6, bottom: 6, right: 6))
+
+    var onTextChange: ((String?) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -47,5 +50,11 @@ final class FilterView: UIView {
         filterButton.trailing(to: textField, offset: -8)
         filterButton.width(36)
         filterButton.height(36)
+
+        textField.rx.controlEvent(.editingChanged)
+            .subscribe(onNext: { [unowned self] in
+                onTextChange?(textField.text)
+            })
+            .disposed(by: rx.disposeBag)
     }
 }

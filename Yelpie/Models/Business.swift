@@ -13,6 +13,7 @@ struct Business: Decodable {
     let name: String
     let imageURLString: String
     let categories: [BusinessCategory]
+    let coordinate: BusinessCoordinate?
     let location: BusinessLocation?
     let rating: Double
     let reviewCount: Int
@@ -23,6 +24,7 @@ struct Business: Decodable {
         name = try decoder.decodeIfPresent("name") ?? ""
         imageURLString = try decoder.decodeIfPresent("image_url") ?? ""
         categories = try decoder.decodeIfPresent("categories") ?? []
+        coordinate = try decoder.decodeIfPresent("coordinates")
         location = try decoder.decodeIfPresent("location")
         rating = try decoder.decodeIfPresent("rating") ?? 0
         reviewCount = try decoder.decodeIfPresent("review_count") ?? 0

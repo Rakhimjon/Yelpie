@@ -8,7 +8,7 @@
 import Moya
 
 enum API {
-    case searchBusinesses(term: String)
+    case searchBusinesses(term: String? = nil, latitude: Double, longitude: Double)
 }
 
 extension API: SugarTargetType {
@@ -28,11 +28,14 @@ extension API: SugarTargetType {
     /// `Task`, put additional params here.
     var task: Task {
         switch self {
-        case .searchBusinesses(let term):
-            let params: [String: Any] = [
-                "term": term,
-                "location": "NYC"
+        case .searchBusinesses(let term, let latitude, let longitude):
+            var params: [String: Any] = [
+                "latitude": latitude,
+                "longitude": longitude
             ]
+            if let term = term {
+                params["term"] = term
+            }
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }
     }
