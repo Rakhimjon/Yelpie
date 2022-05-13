@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import RxSwift
 import CoreLocation
+import SVProgressHUD
 
 final class HomeViewController: UIViewController {
     private let filterView = FilterView()
@@ -70,7 +71,7 @@ final class HomeViewController: UIViewController {
             let filterViewModel = FilterViewModel()
             let filterViewController = FilterViewController(viewModel: filterViewModel)
             filterViewController.onSelectCuisineAndCoordinate = { [weak self] cuisine, coordinate in
-                self?.viewModel.fetchBusinesses(cuisine, coordinate: coordinate)
+                self?.fetchBusinesses(cuisine, coordinate: coordinate)
             }
             navigationController?.pushViewController(filterViewController, animated: true)
         }
@@ -95,8 +96,10 @@ final class HomeViewController: UIViewController {
                 }
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
+                SVProgressHUD.dismiss()
             } onError: { [weak self] error in
                 self?.refreshControl.endRefreshing()
+                SVProgressHUD.dismiss()
             }
             .disposed(by: rx.disposeBag)
     }
@@ -106,8 +109,9 @@ final class HomeViewController: UIViewController {
         locationManager.requestLocation()
     }
 
-    private func fetchBusinesses() {
-        viewModel.fetchBusinesses()
+    private func fetchBusinesses(_ term: String? = nil, coordinate: CLLocationCoordinate2D? = nil) {
+        SVProgressHUD.show()
+        viewModel.fetchBusinesses(term, coordinate: coordinate)
     }
 
     @objc func pullToRefresh(_ sender: AnyObject) {

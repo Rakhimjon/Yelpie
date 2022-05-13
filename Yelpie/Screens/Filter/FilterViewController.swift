@@ -44,6 +44,10 @@ final class FilterViewController: UIViewController {
         .titleColor(.white, .selected)
 
     private let viewModel: FilterViewModel
+    private lazy var cuisineButtons: [UIButton] = {
+        let buttons: [UIButton] = [restaurantButton, fastFoodButton]
+        return buttons
+    }()
 
     var onSelectCuisineAndCoordinate: ((String?, CLLocationCoordinate2D?) -> Void)?
 
@@ -115,33 +119,25 @@ final class FilterViewController: UIViewController {
             })
             .disposed(by: rx.disposeBag)
 
-        restaurantButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                if viewModel.selectedCuisine == Cuisine.restanrant.rawValue {
-                    restaurantButton.backgroundColor = .ratingBackground
-                    restaurantButton.isSelected = false
-                    viewModel.selectedCuisine = nil
-                } else {
-                    restaurantButton.backgroundColor = .primaryColor
-                    restaurantButton.isSelected = true
-                    viewModel.selectedCuisine = restaurantButton.titleLabel?.text
-                }
-            })
-            .disposed(by: rx.disposeBag)
+        for cuisineButton in cuisineButtons {
+            cuisineButton.addTarget(self, action: #selector(cuisineButtonTapped(_:)), for: .touchUpInside)
+        }
+    }
 
-        fastFoodButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                if viewModel.selectedCuisine == Cuisine.fastFood.rawValue {
-                    fastFoodButton.backgroundColor = .ratingBackground
-                    fastFoodButton.isSelected = false
-                    viewModel.selectedCuisine = nil
-                } else {
-                    fastFoodButton.backgroundColor = .primaryColor
-                    fastFoodButton.isSelected = true
-                    viewModel.selectedCuisine = fastFoodButton.titleLabel?.text
-                }
-            })
-            .disposed(by: rx.disposeBag)
+    @objc private func cuisineButtonTapped(_ sender: UIButton) {
+        for cuisineButton in cuisineButtons where cuisineButton.isSelected {
+            cuisineButton.backgroundColor = .ratingBackground
+            cuisineButton.isSelected = false
+        }
+        if viewModel.selectedCuisine == sender.titleLabel?.text {
+            sender.backgroundColor = .ratingBackground
+            sender.isSelected = false
+            viewModel.selectedCuisine = nil
+        } else {
+            sender.backgroundColor = .primaryColor
+            sender.isSelected = true
+            viewModel.selectedCuisine = sender.titleLabel?.text
+        }
     }
 }
 
