@@ -8,6 +8,16 @@
 import Moya
 import CoreLocation
 
+func loadJSON(fileName: String) -> Data? {
+    guard
+        let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
+        let data = try? Data(contentsOf: url) else {
+        return nil
+    }
+
+    return data
+}
+
 enum API {
     case searchBusinesses(term: String? = nil, coordinate: CLLocationCoordinate2D)
 }
@@ -51,7 +61,10 @@ extension API: SugarTargetType {
 
     /// `Sample data`, put sample data here.
     var sampleData: Data {
-        Data()
+        switch self {
+        case .searchBusinesses:
+            return loadJSON(fileName: "businesses") ?? Data()
+        }
     }
 }
 

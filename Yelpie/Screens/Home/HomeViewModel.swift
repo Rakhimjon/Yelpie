@@ -13,6 +13,7 @@ import RxRelay
 
 final class HomeViewModel: NSObject {
     private weak var viewController: HomeViewController?
+    private let apiClient = APIClient()
 
     let businesses = BehaviorRelay<[Business]>(value: [])
     var filteredBusinesses: [Business] = []
@@ -26,7 +27,7 @@ final class HomeViewModel: NSObject {
         } else {
             return
         }
-        APIClient.shared.request(.searchBusinesses(term: term, coordinate: _coordinate), for: [Business].self)
+        apiClient.request(.searchBusinesses(term: term, coordinate: _coordinate), for: [Business].self)
             .subscribe(onSuccess: { [weak self] businesses in
                 guard let self = self else {
                     return

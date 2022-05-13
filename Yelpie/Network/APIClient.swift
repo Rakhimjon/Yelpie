@@ -13,11 +13,9 @@ import SVProgressHUD
 
 /// `APIClient`, use this for network calls.
 final class APIClient: NSObject {
-    /// Singleton.
-    static let shared = APIClient()
+    private let provider: MoyaProvider<API>
 
-    /// Moya network provider
-    private lazy var provider: MoyaProvider<API> = {
+    init(provider: MoyaProvider<API> = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = Session.default.sessionConfiguration.httpAdditionalHeaders
         configuration.timeoutIntervalForRequest = 20
@@ -31,16 +29,9 @@ final class APIClient: NSObject {
         let loggerConfig = NetworkLoggerPlugin.Configuration(logOptions: .verbose)
         let networkLogger = NetworkLoggerPlugin(configuration: loggerConfig)
         return MoyaProvider(session: session, plugins: [networkLogger])
-    }()
-
-    /// Cache network provider
-    private lazy var cacheProvider: MoyaProvider<API> = {
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = Session.default.sessionConfiguration.httpAdditionalHeaders
-        configuration.requestCachePolicy = .returnCacheDataDontLoad
-        let session = Alamofire.Session(configuration: configuration)
-        return MoyaProvider(session: session)
-    }()
+    }()) {
+        self.provider = provider
+    }
 
     /**
      Request data from server then cast it as a Decodable type.
@@ -76,12 +67,7 @@ final class APIClient: NSObject {
                         single(.error(APIClientError.message("Unknown error with status code \(response.statusCode)")))
                     }
                 case let .failure(error):
-                    if let self = self, provider === self.provider {
-                        // Load cache if any
-                        self._request(API, for: type, provider: self.cacheProvider).subscribe(single).disposed(by: self.rx.disposeBag)
-                    } else {
-                        single(.error(error.asAPIClientError))
-                    }
+                    single(.error(error.asAPIClientError))
                 }
             }
 

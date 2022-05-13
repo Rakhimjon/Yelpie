@@ -141,11 +141,13 @@ extension HomeViewController: UITableViewDelegate {
 extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
+            // Cache it to use later
             print(location)
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        // Handle this error
         print(error)
     }
 
