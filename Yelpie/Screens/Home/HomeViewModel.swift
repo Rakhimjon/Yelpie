@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import CoreLocation
+import MapKit
 
 final class HomeViewModel: NSObject {
     private weak var viewController: HomeViewController?
@@ -15,20 +16,16 @@ final class HomeViewModel: NSObject {
     var businesses: [Business] = []
     var filteredBusinesses: [Business] = []
 
-    func fetchBusinesses(_ term: String? = nil, latitude: Double? = nil, longitude: Double? = nil) -> Single<[Business]> {
-        var lat: Double = 0
-        var long: Double = 0
-        if let latitude = latitude, let longitude = longitude {
-            lat = latitude
-            long = longitude
+    func fetchBusinesses(_ term: String? = nil, coordinate: CLLocationCoordinate2D? = nil) -> Single<[Business]> {
+        var _coordinate: CLLocationCoordinate2D
+        if let coordinate = coordinate {
+            _coordinate = coordinate
         } else if let myLocation = MockLocationManager().location {
-            let coordiate = myLocation.coordinate
-            lat = coordiate.latitude
-            long = coordiate.longitude
+            _coordinate = myLocation.coordinate
         } else {
             return .just([])
         }
-        return APIClient.shared.request(.searchBusinesses(term: term, latitude: lat, longitude: long), for: [Business].self)
+        return APIClient.shared.request(.searchBusinesses(term: term, coordinate: _coordinate), for: [Business].self)
             .do(onSuccess: { [weak self] businesses in
                 guard let self = self else {
                     return

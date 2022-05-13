@@ -6,9 +6,10 @@
 //
 
 import Moya
+import CoreLocation
 
 enum API {
-    case searchBusinesses(term: String? = nil, latitude: Double, longitude: Double)
+    case searchBusinesses(term: String? = nil, coordinate: CLLocationCoordinate2D)
 }
 
 extension API: SugarTargetType {
@@ -28,10 +29,10 @@ extension API: SugarTargetType {
     /// `Task`, put additional params here.
     var task: Task {
         switch self {
-        case .searchBusinesses(let term, let latitude, let longitude):
+        case .searchBusinesses(let term, let coordinate):
             var params: [String: Any] = [
-                "latitude": latitude,
-                "longitude": longitude
+                "latitude": coordinate.latitude,
+                "longitude": coordinate.longitude
             ]
             if let term = term {
                 params["term"] = term

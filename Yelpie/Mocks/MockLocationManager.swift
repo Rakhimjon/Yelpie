@@ -15,5 +15,5 @@ protocol LocationManager{
 extension CLLocationManager: LocationManager {}
 
 class MockLocationManager:LocationManager{
-    var location:CLLocation? = CLLocation(latitude: 41.232380, longitude: -99.818237)
+    var location:CLLocation? = CLLocation(latitude: 40.712772, longitude: -74.006058)
 }

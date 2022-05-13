@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1B6A8F2A282B4C74004EEE43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8F29282B4C74004EEE43 /* AppDelegate.swift */; };
-		1B6A8F2E282B4C74004EEE43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8F2D282B4C74004EEE43 /* ViewController.swift */; };
 		1B6A8F31282B4C74004EEE43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B6A8F2F282B4C74004EEE43 /* Main.storyboard */; };
 		1B6A8F33282B4C76004EEE43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B6A8F32282B4C76004EEE43 /* Assets.xcassets */; };
 		1B6A8F36282B4C76004EEE43 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B6A8F34282B4C76004EEE43 /* LaunchScreen.storyboard */; };
@@ -45,6 +44,11 @@
 		1B6A8FB0282C18C0004EEE43 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8FAF282C18C0004EEE43 /* TextField.swift */; };
 		1B6A8FB6282D2267004EEE43 /* BusinessCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8FB5282D2267004EEE43 /* BusinessCoordinate.swift */; };
 		1B6A8FB9282D2D04004EEE43 /* MockLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8FB8282D2D04004EEE43 /* MockLocationManager.swift */; };
+		1B6A8FBB282D327C004EEE43 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8FBA282D327C004EEE43 /* CLLocation.swift */; };
+		1B6A8FBE282D5D38004EEE43 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8FBD282D5D38004EEE43 /* FilterViewController.swift */; };
+		1B6A8FC0282D5D6E004EEE43 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8FBF282D5D6E004EEE43 /* FilterViewModel.swift */; };
+		1B6A8FC2282D6690004EEE43 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8FC1282D6690004EEE43 /* Location.swift */; };
+		1B6A8FC5282E0F20004EEE43 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6A8FC4282E0F20004EEE43 /* LocationTableViewCell.swift */; };
 		54674F4EC6A768281CECB639 /* Pods_Yelpie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1420871DCE8AD297B46C3C69 /* Pods_Yelpie.framework */; };
 		6100BBDE0D77421F7907ED14 /* Pods_YelpieTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA837F70CC6A5F24B5FFBF32 /* Pods_YelpieTests.framework */; };
 		993CC351166D497179CCADDD /* Pods_Yelpie_YelpieUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018EF2BA789DB14CE4355E04 /* Pods_Yelpie_YelpieUITests.framework */; };
@@ -73,7 +77,6 @@
 		1922DBED77EA463F9EE31E88 /* Pods-Yelpie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yelpie.debug.xcconfig"; path = "Target Support Files/Pods-Yelpie/Pods-Yelpie.debug.xcconfig"; sourceTree = "<group>"; };
 		1B6A8F26282B4C74004EEE43 /* Yelpie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yelpie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6A8F29282B4C74004EEE43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1B6A8F2D282B4C74004EEE43 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1B6A8F30282B4C74004EEE43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1B6A8F32282B4C76004EEE43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B6A8F35282B4C76004EEE43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -113,6 +116,11 @@
 		1B6A8FAF282C18C0004EEE43 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		1B6A8FB5282D2267004EEE43 /* BusinessCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCoordinate.swift; sourceTree = "<group>"; };
 		1B6A8FB8282D2D04004EEE43 /* MockLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
+		1B6A8FBA282D327C004EEE43 /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
+		1B6A8FBD282D5D38004EEE43 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		1B6A8FBF282D5D6E004EEE43 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
+		1B6A8FC1282D6690004EEE43 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		1B6A8FC4282E0F20004EEE43 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		4357F663F21F8E44462B946B /* Pods-Yelpie-YelpieUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yelpie-YelpieUITests.debug.xcconfig"; path = "Target Support Files/Pods-Yelpie-YelpieUITests/Pods-Yelpie-YelpieUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7A01C80301198AC24AF57559 /* Pods-Yelpie-YelpieUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yelpie-YelpieUITests.release.xcconfig"; path = "Target Support Files/Pods-Yelpie-YelpieUITests/Pods-Yelpie-YelpieUITests.release.xcconfig"; sourceTree = "<group>"; };
 		81A39DBFE005CEC2D50234DC /* Pods-YelpieTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YelpieTests.debug.xcconfig"; path = "Target Support Files/Pods-YelpieTests/Pods-YelpieTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -195,7 +203,6 @@
 				1B6A8F5A282B578F004EEE43 /* Models */,
 				1B6A8F59282B577A004EEE43 /* Extensions */,
 				1B6A8F29282B4C74004EEE43 /* AppDelegate.swift */,
-				1B6A8F2D282B4C74004EEE43 /* ViewController.swift */,
 				1B6A8F2F282B4C74004EEE43 /* Main.storyboard */,
 				1B6A8F32282B4C76004EEE43 /* Assets.xcassets */,
 				1B6A8F34282B4C76004EEE43 /* LaunchScreen.storyboard */,
@@ -233,6 +240,7 @@
 				1B6A8F5E282B57BD004EEE43 /* UIViewController+Ex.swift */,
 				1B6A8F8F282B7281004EEE43 /* Moya+Ex.swift */,
 				1B6A8FAC282BF653004EEE43 /* UIDevice+Ex.swift */,
+				1B6A8FBA282D327C004EEE43 /* CLLocation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -244,6 +252,7 @@
 				1B6A8F93282B772F004EEE43 /* BusinessCategory.swift */,
 				1B6A8F95282B77AC004EEE43 /* BusinessLocation.swift */,
 				1B6A8FB5282D2267004EEE43 /* BusinessCoordinate.swift */,
+				1B6A8FC1282D6690004EEE43 /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,6 +260,7 @@
 		1B6A8F69282B58F6004EEE43 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				1B6A8FBC282D5D24004EEE43 /* Filter */,
 				1B6A8FB1282D1F54004EEE43 /* Home */,
 			);
 			path = Screens;
@@ -322,6 +332,24 @@
 				1B6A8FB8282D2D04004EEE43 /* MockLocationManager.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		1B6A8FBC282D5D24004EEE43 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				1B6A8FC3282E0F01004EEE43 /* Views */,
+				1B6A8FBD282D5D38004EEE43 /* FilterViewController.swift */,
+				1B6A8FBF282D5D6E004EEE43 /* FilterViewModel.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		1B6A8FC3282E0F01004EEE43 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1B6A8FC4282E0F20004EEE43 /* LocationTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		A8B7A6DA4D4F75AE9DC6B0BB /* Frameworks */ = {
@@ -585,21 +613,25 @@
 				1B6A8FB0282C18C0004EEE43 /* TextField.swift in Sources */,
 				1B6A8FB9282D2D04004EEE43 /* MockLocationManager.swift in Sources */,
 				1B6A8F62282B57BD004EEE43 /* UIColor+Ex.swift in Sources */,
+				1B6A8FC5282E0F20004EEE43 /* LocationTableViewCell.swift in Sources */,
+				1B6A8FC2282D6690004EEE43 /* Location.swift in Sources */,
 				1B6A8F92282B73FB004EEE43 /* Business.swift in Sources */,
 				1B6A8F75282B5C41004EEE43 /* Config.swift in Sources */,
 				1B6A8F8E282B6E3C004EEE43 /* APIClient.swift in Sources */,
+				1B6A8FBB282D327C004EEE43 /* CLLocation.swift in Sources */,
 				1B6A8FA9282BCBAE004EEE43 /* RatingView.swift in Sources */,
 				1B6A8F99282B79C8004EEE43 /* HomeTableViewCell.swift in Sources */,
 				1B6A8F64282B57BD004EEE43 /* UIFont+Ex.swift in Sources */,
 				1B6A8FB6282D2267004EEE43 /* BusinessCoordinate.swift in Sources */,
+				1B6A8FC0282D5D6E004EEE43 /* FilterViewModel.swift in Sources */,
 				1B6A8F94282B772F004EEE43 /* BusinessCategory.swift in Sources */,
 				1B6A8F90282B7281004EEE43 /* Moya+Ex.swift in Sources */,
 				1B6A8F67282B57BD004EEE43 /* String+Ex.swift in Sources */,
-				1B6A8F2E282B4C74004EEE43 /* ViewController.swift in Sources */,
 				1B6A8F6B282B5903004EEE43 /* HomeViewController.swift in Sources */,
 				1B6A8FAD282BF653004EEE43 /* UIDevice+Ex.swift in Sources */,
 				1B6A8F96282B77AC004EEE43 /* BusinessLocation.swift in Sources */,
 				1B6A8F65282B57BD004EEE43 /* UIViewController+Ex.swift in Sources */,
+				1B6A8FBE282D5D38004EEE43 /* FilterViewController.swift in Sources */,
 				1B6A8F8C282B6E25004EEE43 /* API.swift in Sources */,
 				1B6A8F63282B57BD004EEE43 /* UICollectionView+Ex.swift in Sources */,
 				1B6A8F2A282B4C74004EEE43 /* AppDelegate.swift in Sources */,

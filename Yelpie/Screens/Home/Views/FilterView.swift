@@ -22,10 +22,12 @@ final class FilterView: UIView {
         .imageEdgeInsets(.init(top: 6, left: 6, bottom: 6, right: 6))
 
     var onTextChange: ((String?) -> Void)?
+    var onTapFilter: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupLayout()
+        setupEvents()
     }
 
     required init?(coder: NSCoder) {
@@ -50,10 +52,18 @@ final class FilterView: UIView {
         filterButton.trailing(to: textField, offset: -8)
         filterButton.width(36)
         filterButton.height(36)
+    }
 
+    private func setupEvents() {
         textField.rx.controlEvent(.editingChanged)
             .subscribe(onNext: { [unowned self] in
                 onTextChange?(textField.text)
+            })
+            .disposed(by: rx.disposeBag)
+
+        filterButton.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                onTapFilter?()
             })
             .disposed(by: rx.disposeBag)
     }

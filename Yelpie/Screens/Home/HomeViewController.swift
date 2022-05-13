@@ -14,7 +14,6 @@ final class HomeViewController: UIViewController {
     private let filterView = FilterView()
 
     private let tableView = UITableView()
-        .bgColor(.white)
 
     private let refreshControl = UIRefreshControl()
 
@@ -45,6 +44,7 @@ final class HomeViewController: UIViewController {
     }
 
     private func setupLayout() {
+        view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
         view.addSubviews(filterView, tableView)
 
@@ -63,6 +63,12 @@ final class HomeViewController: UIViewController {
                 viewModel.filteredBusinesses = viewModel.businesses
             }
             tableView.reloadData()
+        }
+
+        filterView.onTapFilter = { [unowned self] in
+            let filterViewModel = FilterViewModel()
+            let filterViewController = FilterViewController(viewModel: filterViewModel)
+            navigationController?.pushViewController(filterViewController, animated: true)
         }
     }
 
