@@ -10,8 +10,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 import TinyConstraints
+import CoreLocation
 
 final class FilterViewController: UIViewController {
+    enum Cuisine: String {
+        case restanrant = "Restaurant"
+        case fastFood = "Fast Food"
+    }
+
     private let textField = TextField()
         .font(.medium(14))
         .placeholder("Search location")
@@ -24,16 +30,22 @@ final class FilterViewController: UIViewController {
         .font(.bold(16))
 
     private let restaurantButton = UIButton()
-        .title("Restaurant")
+        .title(Cuisine.restanrant.rawValue)
         .font(.bold(16))
-        .bgColor(.primaryColor)
+        .bgColor(.ratingBackground)
+        .titleColor(.darkText, .normal)
+        .titleColor(.white, .selected)
 
     private let fastFoodButton = UIButton()
-        .title("Fast Food")
+        .title(Cuisine.fastFood.rawValue)
         .font(.bold(16))
-        .bgColor(.primaryColor)
+        .bgColor(.ratingBackground)
+        .titleColor(.darkText, .normal)
+        .titleColor(.white, .selected)
 
     private let viewModel: FilterViewModel
+
+    var onSelectCuisineAndCoordinate: ((String?, CLLocationCoordinate2D?) -> Void)?
 
     init(viewModel: FilterViewModel) {
         self.viewModel = viewModel
@@ -105,13 +117,29 @@ final class FilterViewController: UIViewController {
 
         restaurantButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-
+                if viewModel.selectedCuisine == Cuisine.restanrant.rawValue {
+                    restaurantButton.backgroundColor = .ratingBackground
+                    restaurantButton.isSelected = false
+                    viewModel.selectedCuisine = nil
+                } else {
+                    restaurantButton.backgroundColor = .primaryColor
+                    restaurantButton.isSelected = true
+                    viewModel.selectedCuisine = restaurantButton.titleLabel?.text
+                }
             })
             .disposed(by: rx.disposeBag)
 
         fastFoodButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-
+                if viewModel.selectedCuisine == Cuisine.fastFood.rawValue {
+                    fastFoodButton.backgroundColor = .ratingBackground
+                    fastFoodButton.isSelected = false
+                    viewModel.selectedCuisine = nil
+                } else {
+                    fastFoodButton.backgroundColor = .primaryColor
+                    fastFoodButton.isSelected = true
+                    viewModel.selectedCuisine = fastFoodButton.titleLabel?.text
+                }
             })
             .disposed(by: rx.disposeBag)
     }
@@ -133,5 +161,11 @@ extension FilterViewController: UITableViewDataSource {
 extension FilterViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let location = viewModel.locations.value[indexPath.row]
+        onSelectCuisineAndCoordinate?(viewModel.selectedCuisine, location.coordinate)
+        navigationController?.popViewController(animated: true)
     }
 }

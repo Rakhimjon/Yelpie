@@ -39,6 +39,7 @@ final class HomeViewController: UIViewController {
         setupLayout()
         setupTableView()
         setupFilterView()
+        setupEvents()
         requestLocation()
         fetchBusinesses()
     }
@@ -57,10 +58,10 @@ final class HomeViewController: UIViewController {
     private func setupFilterView() {
         filterView.onTextChange = { [unowned self] searchText in
             if let searchText = searchText, !searchText.isEmpty {
-                viewModel.filteredBusinesses = viewModel.businesses
+                viewModel.filteredBusinesses = viewModel.businesses.value
                     .filter { $0.name.lowercased().contains(searchText.lowercased()) }
             } else {
-                viewModel.filteredBusinesses = viewModel.businesses
+                viewModel.filteredBusinesses = viewModel.businesses.value
             }
             tableView.reloadData()
         }
@@ -68,6 +69,9 @@ final class HomeViewController: UIViewController {
         filterView.onTapFilter = { [unowned self] in
             let filterViewModel = FilterViewModel()
             let filterViewController = FilterViewController(viewModel: filterViewModel)
+            filterViewController.onSelectCuisineAndCoordinate = { [weak self] cuisine, coordinate in
+                self?.viewModel.fetchBusinesses(cuisine, coordinate: coordinate)
+            }
             navigationController?.pushViewController(filterViewController, animated: true)
         }
     }
@@ -82,13 +86,9 @@ final class HomeViewController: UIViewController {
         tableView.addSubview(refreshControl)
     }
 
-    private func requestLocation() {
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-    }
-
-    private func fetchBusinesses() {
-        viewModel.fetchBusinesses()
+    private func setupEvents() {
+        viewModel.businesses
+            .observeOn(MainScheduler.instance)
             .subscribe { [weak self] _ in
                 guard let self = self else {
                     return
@@ -99,6 +99,15 @@ final class HomeViewController: UIViewController {
                 self?.refreshControl.endRefreshing()
             }
             .disposed(by: rx.disposeBag)
+    }
+
+    private func requestLocation() {
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+    }
+
+    private func fetchBusinesses() {
+        viewModel.fetchBusinesses()
     }
 
     @objc func pullToRefresh(_ sender: AnyObject) {

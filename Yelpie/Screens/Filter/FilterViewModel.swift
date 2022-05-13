@@ -15,6 +15,7 @@ final class FilterViewModel: NSObject {
     private weak var viewController: FilterViewController?
 
     let locations = BehaviorRelay<[Location]>(value: [])
+    var selectedCuisine: String?
 
     func searchLocation(by name: String) {
         let request = MKLocalSearch.Request()
